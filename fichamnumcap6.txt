@@ -1,0 +1,48 @@
+import math
+
+def dy(x,y):
+    return x**2 + y**2
+
+def y(x,y):
+    return (x**3)/3 + x*(y**2)
+
+def Euler(lb,ub,h):
+    qc = 10
+    x= 0
+    y= 0
+    nextX = 0
+    nextY = 0
+    while abs(qc-2) > 0.5:
+        nextX, nextY = EulerAux(x,y, h, dy, 1, 1.4)
+        nextXl, nextYl = EulerAux(x,y, h, dy, 2, 1.4)
+        nextXll, nextYll = EulerAux(x,y, h, dy, 4, 1.4)
+        qc = (nextYl - nextY) / (nextYll - nextYl)
+        print(nextX, nextY, nextXl, nextYl, nextXll, nextYll, abs(qc)-2)
+        h /= 2
+
+def EulerAux(x, y, h, dy, factor, stopValue):
+    auxH = h / factor
+    while(x < stopValue):   
+        y  = y + dy(x,y) * auxH
+        x = x+auxH
+    return (x, y)
+
+lb = 0
+ub = 1.4
+h = 0.1
+Euler(lb, ub, h)
+
+def Rk4():
+    qc = 10
+    nextX = 0
+    nextY = 0
+    while(nextX < 1.4):
+        nextX, nextY = EulerAux(nextX,nextY, h, dy, 1)
+        nextXl, nextYl = EulerAux(nextX,nextY, h, dy, 2)
+        nextXll, nextYll = EulerAux(nextX,nextY, h, dy, 4)
+        qc = (nextYl - nextY) / (nextYll - nextYl)
+        print(nextX, nextY, nextXl, nextYl, nextXll, nextYll, abs(qc))
+        break
+
+#def Rk4Aux():
+#    auxH = h / factor
