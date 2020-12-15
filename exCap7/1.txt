@@ -1,0 +1,47 @@
+import math
+
+
+def f(x, y):
+    return (y**2) - 2*x*y - 6*y + 2*(x**2) + 12
+
+def g(x,y):
+    return 2*x*y + 2*x - x**2 -2*(y**2)
+
+def dfdx(x, y):
+    return -2*y + 4*x
+
+
+def dfdy(x, y):
+    return 2*y - 2*x - 6
+
+
+def gradiente(x, y, tolerance, h, isMin):
+    while(1):
+        nextX = x - h * dfdx(x, y)
+        nextY = y - h * dfdy(x, y)
+        print(x, y, nextX, nextY)
+
+        if((round(abs(nextX - x), 3) <= tolerance) and ( round(abs(nextY - y), 3) <= tolerance)):
+            break
+
+        func = f(x, y)
+        nextFunc = f(nextX, nextY)
+        if(isMin == False):    ## if looking for maximum, invert f(x)
+            func = -func
+            nextFunc = -nextFunc
+
+        if(nextFunc < func):    # if next value is still before the minimum, update x and y
+            h *= 2
+            x = nextX
+            y = nextY
+        else:                   # if it surpasses the minimum, divide h by 2
+            h /= 2
+    return nextFunc
+
+x0 = 1
+y0 = 1
+tolerance = 0.001
+h = 1
+min = gradiente(x0, y0, tolerance, h, True)
+max = gradiente(x0, y0, tolerance, h, False)
+print(min, max)

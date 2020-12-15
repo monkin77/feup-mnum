@@ -1,0 +1,30 @@
+import math
+
+def f(x):
+    return (2*x + 1)**2 - 5 * math.cos(10*x)
+
+
+def aurea(f, x1,x2, tolerance, isMin):
+    b = ((5**0.5) - 1) / 2
+    a = b**2
+    while( abs(x2-x1) >= tolerance ):
+        x3 = x1 + a * (x2 - x1)
+        x4 = x1 + b * (x2 - x1)
+        fx3 = f(x3)
+        fx4 = f(x4)
+        if(isMin == False):
+            fx3 = -fx3
+            fx4 = -fx4
+        if(fx3 < fx4):
+            x2 = x4
+        else:
+            x1 = x3
+        #print("x1 / x2: ", x1, " / ", x2)
+    return f(x1)
+
+tolerance = 0.001
+x1 = -1
+x2 = 0
+min = aurea(f, x1,x2, tolerance, True)
+max = aurea(f, x1,x2, tolerance, False)
+print("min / max:", min, " / ", max)

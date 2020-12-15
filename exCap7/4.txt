@@ -1,0 +1,31 @@
+import math
+
+def f(x,y):
+    return math.sin(x/2) + (x**2) - math.cos(y)
+
+def dfdx(x,y):
+    return 0.5 * math.cos(x/2) + 2*x 
+
+def dfdy(x,y):
+    return math.sin(y)
+
+def dfdx2(x,y):
+    return -0.25*math.sin(x/2) + 2 
+
+def dfdxdy(x,y):
+    return 0
+
+def dfdydx(x,y):
+    return 0
+
+def dfdy2(x,y):
+    return  math.cos(y)
+
+def quadratica(f, x0, y0, tolerance):
+    
+
+x0 = -3
+y0 = -1
+tolerance = 0.001   
+
+
